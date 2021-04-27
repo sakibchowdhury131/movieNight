@@ -1,233 +1,203 @@
-# Author: Sakib Chowdhury
+# -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QSlider, QStyle, QSizePolicy, QFileDialog
-from PyQt5.QtGui import QIcon, QPalette
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtCore import Qt, QUrl
-import sys
+# Form implementation generated from reading ui file 'v1.2.ui'
+#
+# Created by: PyQt5 UI code generator 5.14.1
+#
+# WARNING! All changes made in this file will be lost!
+
+
+from PyQt5 import QtCore, QtGui, QtWidgets
 from paho.mqtt import client as mqtt_client
-import time
-import threading
+import sys
+from player import Window
+from PyQt5.QtGui import QIcon, QPalette
+from PyQt5.QtCore import Qt
+
+class Ui_credWindow(object):
 
 
+    def setupUi(self, mainWindow):
+        mainWindow.setObjectName("mainWindow")
+        mainWindow.resize(729, 462)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("network.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        mainWindow.setWindowIcon(icon)
+        mainWindow.setWindowOpacity(1.0)
+        self.centralwidget = QtWidgets.QWidget(mainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName("gridLayout")
+        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.widget.setObjectName("widget")
+        self.label = QtWidgets.QLabel(self.widget)
+        self.label.setGeometry(QtCore.QRect(180, 120, 67, 17))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.widget)
+        self.label_2.setGeometry(QtCore.QRect(180, 150, 67, 17))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.widget)
+        self.label_3.setGeometry(QtCore.QRect(180, 180, 111, 17))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.widget)
+        self.label_4.setGeometry(QtCore.QRect(180, 210, 101, 17))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.widget)
+        self.label_5.setGeometry(QtCore.QRect(180, 240, 71, 21))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
+        self.lineEditBroker = QtWidgets.QLineEdit(self.widget)
+        self.lineEditBroker.setGeometry(QtCore.QRect(320, 120, 241, 25))
+        self.lineEditBroker.setInputMask("")
+        self.lineEditBroker.setClearButtonEnabled(False)
+        self.lineEditBroker.setObjectName("lineEditBroker")
+        self.lineEditPort = QtWidgets.QLineEdit(self.widget)
+        self.lineEditPort.setGeometry(QtCore.QRect(320, 150, 241, 25))
+        self.lineEditPort.setInputMask("")
+        self.lineEditPort.setObjectName("lineEditPort")
+        self.lineEditUsername = QtWidgets.QLineEdit(self.widget)
+        self.lineEditUsername.setGeometry(QtCore.QRect(320, 180, 241, 25))
+        self.lineEditUsername.setInputMask("")
+        self.lineEditUsername.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.lineEditUsername.setObjectName("lineEditUsername")
+        self.lineEditPassword = QtWidgets.QLineEdit(self.widget)
+        self.lineEditPassword.setGeometry(QtCore.QRect(320, 210, 241, 25))
+        self.lineEditPassword.setAutoFillBackground(False)
+        self.lineEditPassword.setInputMask("")
+        self.lineEditPassword.setText("")
+        self.lineEditPassword.setMaxLength(32767)
+        self.lineEditPassword.setFrame(True)
+        self.lineEditPassword.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.lineEditPassword.setObjectName("lineEditPassword")
+        self.lineEditTopic = QtWidgets.QLineEdit(self.widget)
+        self.lineEditTopic.setGeometry(QtCore.QRect(320, 240, 241, 25))
+        self.lineEditTopic.setObjectName("lineEditTopic")
+        self.pushButtonConnect = QtWidgets.QPushButton(self.widget)
+        self.pushButtonConnect.setGeometry(QtCore.QRect(380, 300, 89, 25))
+        self.pushButtonConnect.setObjectName("pushButtonConnect")
+        self.label_6 = QtWidgets.QLabel(self.widget)
+        self.label_6.setGeometry(QtCore.QRect(240, 10, 241, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
+        self.label_7 = QtWidgets.QLabel(self.widget)
+        self.label_7.setGeometry(QtCore.QRect(180, 350, 67, 17))
+        self.label_7.setObjectName("label_7")
+        self.label_8 = QtWidgets.QLabel(self.widget)
+        self.label_8.setGeometry(QtCore.QRect(250, 350, 211, 17))
+        self.label_8.setObjectName("label_8")
+        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+        mainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(mainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 729, 22))
+        self.menubar.setObjectName("menubar")
+        mainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(mainWindow)
+        self.statusbar.setObjectName("statusbar")
+        mainWindow.setStatusBar(self.statusbar)
 
+        self.retranslateUi(mainWindow)
+        QtCore.QMetaObject.connectSlotsByName(mainWindow)
+        self.pushButtonConnect.clicked.connect(self.connect_clicked)
 
-class Window(QWidget):  
-
-
-    def __init__(self):
-        super().__init__()
-
-
+    def retranslateUi(self, mainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        mainWindow.setWindowTitle(_translate("mainWindow", "Movie Night v1.1"))
+        self.label.setText(_translate("mainWindow", "Broker: "))
+        self.label_2.setText(_translate("mainWindow", "Port:"))
+        self.label_3.setText(_translate("mainWindow", "User Name:"))
+        self.label_4.setText(_translate("mainWindow", "Password:"))
+        self.label_5.setText(_translate("mainWindow", "Topic:"))
+        self.lineEditBroker.setPlaceholderText(_translate("mainWindow", "IP address of the server"))
+        self.lineEditPort.setPlaceholderText(_translate("mainWindow", "typically 1883"))
+        self.lineEditUsername.setPlaceholderText(_translate("mainWindow", "Some Broker don\'t require username"))
+        self.lineEditTopic.setPlaceholderText(_translate("mainWindow", "topic must be same for the group"))
+        self.pushButtonConnect.setText(_translate("mainWindow", "Connect"))
+        self.label_6.setText(_translate("mainWindow", "Provide Server Credentials"))
+        self.label_7.setText(_translate("mainWindow", "Status: "))
+        self.label_8.setText(_translate("mainWindow", "Not Connected"))
+    
+    
+    
+    
+    def connect_clicked(self):
         def on_connect(client, userdata, flags, rc):
-            print("connected -rc: ", rc)
+            if rc == 0:
+                self.label_8.setText("Connected")
+                print("Connected to MQTT Broker!")
+                self.client.loop_stop()
+                self.client.disconnect()
+                secondScreen.startServer(self.broker, self.port, self.username, self.password, self.topic)
+                p = widget.palette()
+                p.setColor(QPalette.Window, Qt.black)
+                widget.setPalette(p)
+                widget.setCurrentIndex(widget.currentIndex()+1)
+                
 
-        def on_message(client, userdata, message):
-
-            msg = message.payload.decode("utf-8")
-            
-            x = msg.split(";")
-            print(x)
-            state = int(x[0])
-            pos = int(x[1])
-            
-            if state == QMediaPlayer.PlayingState:
-                self.mediaPlayer.play()
             else:
-                self.mediaPlayer.pause()
-            
-            self.mediaPlayer.setPosition(pos)
+                self.label_8.setText("Failed to Connect")
+                print("Failed to connect, return code %d\n", rc)
 
-        def on_subscribe(client, userdata, mid, granted_qos):
-            print("Subscribed: ", str(mid), str(granted_qos))
 
+
+        self.broker = self.lineEditBroker.text()
+        self.port = int(self.lineEditPort.text())
+        self.username = self.lineEditUsername.text()
+        self.password = self.lineEditPassword.text()
+        self.topic = self.lineEditTopic.text()
+
+        self.label_8.setText("Connecting...")
+
+        print(self.broker)
+        print(self.port)
+        print(self.username)
+        print(self.password)
+        print(self.topic)
+        print("UI shown")
         
-        self.broker = "test.mosquitto.org"
-        self.port = 1883
-        self.topic = "/mediastate/"
-        self.pos = ""
+
 
         self.client = mqtt_client.Client()
+        self.client.username_pw_set(self.username, self.password)
         self.client.on_connect = on_connect
-        self.client.on_subscribe = on_subscribe
-        self.client.on_message = on_message
-
-        self.connect_server()
-        self.client.subscribe(self.topic)
-        self.client.loop_start()
-        
-        self.setWindowTitle("Movie Night")
-        self.setGeometry(350, 100, 700, 500)
-        self.setWindowIcon(QIcon('player.png'))
-
-        p = self.palette()
-        p.setColor(QPalette.Window, Qt.black)
-        self.setPalette(p)
-        self.init_ui()
-        self.show()
-
-
-    def init_ui(self):
-
-        
-        # create media player object
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-
-
-
-        #create video widget object
-        videowidget = QVideoWidget()
-
-
-
-        # create open button 
-        openBtn = QPushButton('Open Video')
-        openBtn.clicked.connect(self.open_file)
-
-        
-        
-
-
-        #create button or playing
-        self.playBtn = QPushButton()
-        self.playBtn.setEnabled(False)
-        self.playBtn.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
-        self.playBtn.clicked.connect(self.play_video)
-
-
-
-        #create slider
-        self.slider = QSlider(Qt.Horizontal)
-        self.slider.setRange(0,0)
-        self.slider.sliderMoved.connect(self.set_position)
-
-
-
-        #create label
-        self.label = QLabel()
-        self.label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
-
-
-
-        #create hbox layout 
-        hboxLayout = QHBoxLayout()
-        hboxLayout.setContentsMargins(0,0,0,0)
-
-
-
-
-        #add widgets to the hbox layout
-        hboxLayout.addWidget(openBtn)
-        hboxLayout.addWidget(self.playBtn)
-        hboxLayout.addWidget(self.slider)
-
-
-
-
-        #create vbox layout 
-        vboxLayout = QVBoxLayout()
-        vboxLayout.addWidget(videowidget)
-        vboxLayout.addLayout(hboxLayout)
-        vboxLayout.addWidget(self.label)
-
-
-        #mqtthandle
-        
-
-
-        self.setLayout(vboxLayout)
-        self.mediaPlayer.setVideoOutput(videowidget)
-
-
-        #media player signals
-        self.mediaPlayer.stateChanged.connect(self.mediastate_changed)
-        self.mediaPlayer.positionChanged.connect(self.position_changed)
-        self.mediaPlayer.durationChanged.connect(self.duration_changed)
-
-
-    
-
-    def open_file(self):
-        filename, _ = QFileDialog.getOpenFileName(self, "Open Video")
-
-
-        if filename != '':
-            self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(filename)))
-            self.playBtn.setEnabled(True)
-
-
-    
-    def play_video(self):
-
-        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
-            self.mediaPlayer.pause()
-            
-
-        else:
-            self.mediaPlayer.play()
-
-
-    def mediastate_changed(self, state):
-        self.pos = self.mediaPlayer.position()
-        print(self.pos)
-        self.client.publish(self.topic, str(self.mediaPlayer.state())+ ";" + str(self.pos))
-        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
-            self.playBtn.setIcon(
-                self.style().standardIcon(QStyle.SP_MediaPause)
-
-            )
-            
-        else :
-            self.playBtn.setIcon(
-                self.style().standardIcon(QStyle.SP_MediaPlay)
-
-            )
-            
-
-
-
-    def position_changed(self, position):
-        self.slider.setValue(position)
-        
-
-
-    def duration_changed(self, duration):
-        self.slider.setRange(0, duration)
-
-
-
-
-    def set_position(self, position):
-        self.pos = position
-        print(self.pos)
-        self.mediaPlayer.setPosition(position)
-        self.client.publish(self.topic, str(self.mediaPlayer.state())+ ";" + str(self.pos))
-
-
-    
-    def connect_server(self):
         self.client.connect(self.broker, self.port)
-        
-
-
-
-
-    def handle_errors(self):
-        self.playBtn.setEnabled(False)
-        self.label.setText("Error: " + self.mediaPlayer.errorString())
-        
+        self.client.loop_start()
 
     
 
+        
 
-def main():
-    app = QApplication(sys.argv)
-    window = Window()
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    widget = QtWidgets.QStackedWidget()
+
+    credWindow = QtWidgets.QMainWindow()
+    credui = Ui_credWindow()
+    credui.setupUi(credWindow)
+
+
+    secondScreen = Window()
+
+    widget.addWidget(credWindow)
+    widget.addWidget(secondScreen)
+    widget.setWindowTitle("movie Night")
+    widget.setGeometry(350, 100, 850, 500)
+    widget.setWindowIcon(QIcon('network.png'))
+    widget.show()
     sys.exit(app.exec_())
-
-    
-    
-    
-
-main()
